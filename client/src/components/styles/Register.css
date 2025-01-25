@@ -1,0 +1,61 @@
+.register-page {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+  background-image: url(../images/register.webp);
+}
+
+.register-content {
+  background-color:transparent;
+  border-radius: 8px;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  color: #fff;
+  text-shadow:  0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+  border-width: 3px;
+  margin-left: 25px;
+}
+
+.register-content h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.register-content label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.register-content input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  border-width: 1px;
+  border-radius: 7px;
+  font-size: 16px;
+}
+
+.register-content button {
+  background-color: #008000;
+  color: #fff;
+  width: 100%;
+  padding: 10px;
+  border: solid orange;
+  border-radius: 7px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.register-content .error {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
