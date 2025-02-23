@@ -19,13 +19,22 @@ app.use(session({
 }));
 
 //setting
-app.set("port", 4000);
-
+//app.set("port", 4000);
+const PORT = 4000;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Servidor corriendo en el puerto ${PORT}`);
+});
 //middleware
+
 app.use(cors({
+  origin: '  http://192.168.10.16:3000', // Puedes reemplazar '*' por 'http://192.168.10.4:3000' para mayor seguridad
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+  credentials: true
+}));
+/*app.use(cors({
     origin: "http://localhost:3000",
     credentials: true,
-}));
+}));*/
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({extended:true})); //new

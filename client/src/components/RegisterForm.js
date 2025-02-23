@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./styles/Register.css";
-
+import Swal from 'sweetalert2';
 function RegisterForm() {
   const [name, setName] = useState('');
   const [fullname, setFullname] = useState('');
@@ -10,6 +10,7 @@ function RegisterForm() {
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const BASE_URL = process.env.REACT_APP_BASE_URL || "http://192.168.10.16:4000";
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -17,7 +18,7 @@ function RegisterForm() {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:4000/api/users', {
+      const response = await fetch(`${BASE_URL}/api/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -44,6 +45,8 @@ function RegisterForm() {
       }
 
       // Si el registro es exitoso, redirigir a la página del diario
+      
+      Swal.fire("Bienvenido", "Ingresa tus credenciales para iniciar sesiòn", "success");
       navigate('/diary');
     } catch (error) {
       setError('Error during registration: ' + error.message);
@@ -57,46 +60,47 @@ function RegisterForm() {
         <h2>Registro de usuario</h2>
         {error && <p className="error">{error}</p>}
         <form onSubmit={handleRegister}>
-          <label>
-            Nombre:
+          <div className="input-container">
             <input
+              className='input-field'
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder='Nombres'
               required
             />
-          </label>
-          <label>
-            Apellido:
+            <label className='input-label' >Nombre</label>
+          </div>
+          <div className="input-container">
             <input
+              className='input-field'
               type="text"
               value={fullname}
               onChange={(e) => setFullname(e.target.value)}
-              placeholder='Apellidos'
               required
             />
-          </label>
-          <label>
-            Correo:
+            <label className='input-label' >Apellido</label>
+          </div>
+          <div className="input-container">
             <input
+              className='input-field'
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder='Direcciòn de Correo'
               required
             />
-          </label>
-          <label>
-            Clave:
+            <label className='input-label' >Correo</label>
+          </div>
+          <div className="input-container">
             <input
+              className='input-field'
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder='Clave de acceso'
               required
             />
-          </label>
+            <label className='input-label' >Clave</label>
+          </div>
+          
           <button type="submit" disabled={!name || !fullname || !email || !password || isSubmitting}>
             Registrarse
           </button>

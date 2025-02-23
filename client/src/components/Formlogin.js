@@ -8,6 +8,8 @@ function Formlogin(props) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [showFormSendEmail, setShowFormSendEmail] = useState(false);
+  const BASE_URL = process.env.REACT_APP_BASE_URL || "http://192.168.10.16:4000";
+  
    const handleCheckActiveStatus = async () => {
     if (!email) {
       console.log("No email provided");  // Debugging
@@ -16,7 +18,7 @@ function Formlogin(props) {
 
     try {
       console.log("Checking active status for email:", email);  // Debugging
-      const response = await fetch(`http://localhost:4000/api/users/check-active`, {
+      const response = await fetch(`${BASE_URL}/api/users/check-active`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }), // Enviando correctamente el email
@@ -43,7 +45,7 @@ function Formlogin(props) {
           
           // **Solución: Asegurarte que el email esté correctamente codificado**
           const encodedEmail = encodeURIComponent(email);
-          const activateResponse = await fetch(`http://localhost:4000/api/users/activate/${encodedEmail}`, {
+          const activateResponse = await fetch(`${BASE_URL}/api/users/activate/${encodedEmail}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
           });
@@ -73,7 +75,7 @@ function Formlogin(props) {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-        const response = await fetch("http://localhost:4000/api/users/login", {
+        const response = await fetch(`${BASE_URL}/api/users/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -104,7 +106,7 @@ function Formlogin(props) {
                     console.log("Activating account for email:", email);  // Debugging
 
                     const encodedEmail = encodeURIComponent(email);
-                    const activateResponse = await fetch(`http://localhost:4000/api/users/activate/${encodedEmail}`, {
+                    const activateResponse = await fetch(`${BASE_URL}/api/users/activate/${encodedEmail}`, {
                         method: "PATCH",
                         headers: { "Content-Type": "application/json" },
                     });
@@ -128,7 +130,7 @@ function Formlogin(props) {
   /*const handleLogin = async (e) => {
     e.preventDefault();
     try {
-        const response = await fetch("http://localhost:4000/api/users/login", {
+        const response = await fetch("${BASE_URL}/api/users/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -162,7 +164,7 @@ function Formlogin(props) {
   /*const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:4000/api/users/login", {
+      const response = await fetch("${BASE_URL}/api/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -195,25 +197,29 @@ function Formlogin(props) {
         <form className="form-login" onSubmit={handleLogin}>
           <h1 className="title"> Comienza a planificar tu día </h1>
           <p>{props.message}</p>
-          <label className="label-user" htmlFor="email">{props.email}</label>
-          <input 
-            className="in-email" 
-            name="email" 
-            type="text" 
-            placeholder="Email de usuario" 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)}
-            onBlur={handleCheckActiveStatus} // Agregar onBlur
-          />
-          <label className="label-password" htmlFor="password">{props.pass}</label>
-          <input 
-            className="in-password" 
-            name="password" 
-            type="password" 
-            placeholder="User Password" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
-          />
+          <div className="input-container">
+            <input 
+              className="input-field" 
+              type="text" 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)}
+              onBlur={handleCheckActiveStatus} 
+              required
+            />
+            <label className="input-label">Email de usuario</label>
+          </div>
+          
+          <div className="input-container">
+            <input 
+              className="input-field" 
+              type="password" 
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
+              required
+            />
+            <label className="input-label">Contraseña</label>
+          </div>
+
           <button className="login-button" type="submit">{props.login}</button>
           <span
             onClick={handleShowFormSendEmail}

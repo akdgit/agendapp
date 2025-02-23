@@ -7,21 +7,22 @@ function UpdateUserForm({ userId, onClose }) {
     const [name, setName] = useState("");
     const [fullname, setFullname] = useState("");
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState(""); // Puede ser opcional
+    //const [password, setPassword] = useState(""); // Puede ser opcional
     const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
-
+    const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:4000";
+    
     // **Obtener los datos del usuario al montar el componente**
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await fetch(`http://localhost:4000/api/users/${userId}`);
+                const response = await fetch(`${BASE_URL}/api/users/${userId}`);
                 const data = await response.json();
                 if (response.ok && data.length > 0) {
                     setName(data[0].name);
                     setFullname(data[0].fullname);
                     setEmail(data[0].email);
-                    setPassword(data[0].password);
+                    //setPassword(data[0].password);
                 } else {
                     console.error("Error al obtener los datos del usuario:", data);
                     alert("No se pudo cargar la información del usuario");
@@ -41,8 +42,8 @@ function UpdateUserForm({ userId, onClose }) {
         setIsSubmitting(true);
     
         try {
-            const updates = { name, fullname, email, password };
-            const response = await fetch(`http://localhost:4000/api/users/${userId}`, {
+            const updates = { name, fullname, email, /*password*/ };
+            const response = await fetch(`${BASE_URL}/api/users/${userId}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updates),
@@ -74,7 +75,7 @@ function UpdateUserForm({ userId, onClose }) {
 
         try {
             const updates = { name, fullname, email, password };
-            const response = await fetch(`http://localhost:4000/api/users/${userId}`, {
+            const response = await fetch(`${BASE_URL}/api/users/${userId}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updates),
@@ -131,16 +132,6 @@ function UpdateUserForm({ userId, onClose }) {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Dirección de correo"
-                            required
-                        />
-                    </label>
-                    <label>
-                        Clave:
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Clave de acceso"
                             required
                         />
                     </label>

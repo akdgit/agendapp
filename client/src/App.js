@@ -6,7 +6,7 @@ import Diary from "./pages/Diary";
 import LoginForm from "./components/Formlogin";
 import RegisterForm from './components/RegisterForm';
 import CustomCarousel from './components/Carousel';
-import logo from "./images/logo.webp";
+import logo from "../src/pages/images/portada1";
 
 function App() {
 
@@ -18,6 +18,7 @@ function App() {
           element={
             <div className="main-content">
               <div className='logotipo'>
+                <h1 className='lema'>¡...Y no te olvides de nada!</h1>
                 <img
                   src= { logo }
                   className='pag-logo'

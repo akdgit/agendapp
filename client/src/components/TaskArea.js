@@ -3,6 +3,7 @@ import { Tooltip } from "react-tooltip";
 import Swal from "sweetalert2";
 
 function TaskArea({ taskList, setTaskList}) {
+    const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:4000";
     const [showForm, setShowForm] = useState(false);
     const [task, setTask] = useState({
         description: "",  // Cambié 'title' a 'description'
@@ -21,7 +22,7 @@ function TaskArea({ taskList, setTaskList}) {
             return;
         }
         try {
-            const response = await fetch(`http://localhost:4000/api/act-user/${userId}`);
+            const response = await fetch(`${BASE_URL}/api/act-user/${userId}`);
             const data = await response.json();
     
             if (response.ok) {
@@ -36,7 +37,7 @@ function TaskArea({ taskList, setTaskList}) {
     
     /*const handleClearTasks = async () => {
         try {
-            const response = await fetch(`http://localhost:4000/api/activities/clear/${userId}`, {
+            const response = await fetch(`${BASE_URL}/api/activities/clear/${userId}`, {
                 method: "DELETE",
             });
     
@@ -116,7 +117,7 @@ function TaskArea({ taskList, setTaskList}) {
         if (confirmed.isConfirmed) {
             try {
                 const updatedTask = { done: isCompleting };
-                const response = await fetch(`http://localhost:4000/api/activities/${task.id}`, {
+                const response = await fetch(`${BASE_URL}/api/activities/${task.id}`, {
                     method: "PATCH",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(updatedTask),
@@ -161,7 +162,7 @@ function TaskArea({ taskList, setTaskList}) {
             const updatedTask = { ...task, done: !task.done };
 
             try {
-                const response = await fetch(`http://localhost:4000/api/activities/${task.id}`, {
+                const response = await fetch(`${BASE_URL}/api/activities/${task.id}`, {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json"
@@ -201,7 +202,7 @@ function TaskArea({ taskList, setTaskList}) {
         try {
             let response;
             if (isEditing) {
-                response = await fetch("http://localhost:4000/api/activities/${editingTaskId}", {
+                response = await fetch("${BASE_URL}/api/activities/${editingTaskId}", {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json"
@@ -209,7 +210,7 @@ function TaskArea({ taskList, setTaskList}) {
                     body: JSON.stringify(newTask)
                 });
             } else {
-                response = await fetch("http://localhost:4000/api/activities", {
+                response = await fetch("${BASE_URL}/api/activities", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -255,7 +256,7 @@ function TaskArea({ taskList, setTaskList}) {
                 console.log(`Editando tarea con ID: ${editingTaskId}`);  // Log para verificar el ID
                 console.log("Datos enviados:", newTask);  // Log para verificar los datos enviados
     
-                response = await fetch(`http://localhost:4000/api/activities/${editingTaskId}`, {
+                response = await fetch(`${BASE_URL}/api/activities/${editingTaskId}`, {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json"
@@ -263,7 +264,7 @@ function TaskArea({ taskList, setTaskList}) {
                     body: JSON.stringify(newTask)
                 });
             } else {
-                response = await fetch("http://localhost:4000/api/activities", {
+                response = await fetch(`${BASE_URL}/api/activities`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -299,7 +300,7 @@ function TaskArea({ taskList, setTaskList}) {
         // Si el usuario confirma, procedemos con la eliminación
         if (result.isConfirmed) {
             try {
-                const response = await fetch(`http://localhost:4000/api/activities/${taskId}`, {
+                const response = await fetch(`${BASE_URL}/api/activities/${taskId}`, {
                     method: "DELETE",
                 });
 
@@ -317,7 +318,7 @@ function TaskArea({ taskList, setTaskList}) {
                             return;
                         }
                         try {
-                            const response = await fetch(`http://localhost:4000/api/act-user/${userId}`);
+                            const response = await fetch(`${BASE_URL}/api/act-user/${userId}`);
                             const data = await response.json();
                     
                             if (response.ok) {
@@ -348,7 +349,7 @@ function TaskArea({ taskList, setTaskList}) {
             return;
         }
         try {
-            const response = await fetch(`http://localhost:4000/api/act-user/${userId}`);
+            const response = await fetch(`${BASE_URL}/api/act-user/${userId}`);
             const data = await response.json();
     
             if (response.ok) {
@@ -363,7 +364,7 @@ function TaskArea({ taskList, setTaskList}) {
     
     const handleClearTasks = async () => {
         try {
-            const response = await fetch(`http://localhost:4000/api/activities/clear/${userId}`, {
+            const response = await fetch(`${BASE_URL}/api/activities/clear/${userId}`, {
                 method: "DELETE",
             });
     
@@ -414,9 +415,11 @@ function TaskArea({ taskList, setTaskList}) {
                 {/* Overlay para bloquear la interacción con el fondo */}
                 {showForm && <div className="overlay"></div>}
                 <form className={`form-task ${showForm ? 'show' : ''}`} onSubmit={handleSubmit}>
+                    <h1>Agregar Tarea</h1>
                     <input 
                         className="in-task"
                         type="text"
+                        maxLength={100}
                         name="description"
                         placeholder="¿Qué vas a agendar?"
                         value={task.description}

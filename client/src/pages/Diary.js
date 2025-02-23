@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import ChangePasswoerdForm from "../components/ChangePasswordForm";
 import UpdateUserForm from "../components/FormUpdateUser";
 import TaskArea from "../components/TaskArea";
 import "./styles/Diary.css";
 import Swal from "sweetalert2";
+import ClockDate from "../components/ClockDate";
 
 function Diary() {
     const navigate = useNavigate();
@@ -11,7 +13,10 @@ function Diary() {
     const [userName, setUserName] = useState("");
     const [userId, setUserId] = useState(null);
     const [showUpdateForm, setShowUpdateForm] = useState(false);
+    const [showChangePassword, setShowChangePassword] = useState(false);
     const [taskList, setTaskList] = useState([]); 
+    const BASE_URL = process.env.REACT_APP_BASE_URL || "http://192.168.10.16:4000";
+    console.log("BASE_URL:", BASE_URL);
 
     // Obtener datos del usuario al cargar la página
     useEffect(() => {
@@ -21,13 +26,13 @@ function Diary() {
             setUserName(username);
             setUserId(userId);
         } else {
-            navigate("/");
+            navigate("/");  
         }
     }, [navigate]);
 
     const handleLogout = async () => {
         try {
-            const response = await fetch("http://localhost:4000/api/users/logout", {
+            const response = await fetch(`${BASE_URL}/api/users/logout`, {
                 method: "GET",
                 credentials: "include",
             });
@@ -80,7 +85,7 @@ function Diary() {
     
         try {
             // Asegúrate de que la URL coincida con la ruta del backend
-            const response = await fetch(`http://localhost:4000/api/activities/clear/${userId}`, {
+            const response = await fetch(`${BASE_URL}/api/activities/clear/${userId}`, {
                 method: "DELETE",
             });
     
@@ -109,7 +114,7 @@ function Diary() {
         if (!confirmClear) return;
     
         try {
-            const response = await fetch(`http://localhost:4000/api/activities/clear/${userId}`, {
+            const response = await fetch(`${BASE_URL}/api/activities/clear/${userId}`, {
                 method: "DELETE",
             });
     
@@ -149,7 +154,7 @@ function Diary() {
         if (!confirmDesable.isConfirmed) return;
     
         try {
-            const response = await fetch(`http://localhost:4000/api/users/${userId}`, {
+            const response = await fetch(`${BASE_URL}/api/users/${userId}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ active: false }),
@@ -171,9 +176,20 @@ function Diary() {
         }
     };
 
+    const handleChangePassword = () =>{
+        setShowChangePassword(true);
+        setShowMenu(false);
+    };
+
+    const handleCloseChangePasswordForm = () =>{
+        setShowChangePassword(false);
+    };
+
     return (
         <div>
             <header className="encabezado">
+                <ClockDate />
+                <div className="user-container">
                 <div className="user-info">
                     <span onClick={toggleMenu} className="user-name">
                         {userName}
@@ -182,8 +198,9 @@ function Diary() {
                     {showMenu && (
                         <div className="dropdown-menu">
                             <ul>
-                                <li onClick={handleEditProfile}>Editar perfil</li>
+                                <li onClick={handleEditProfile}> Editar perfil</li>
                                 <li onClick={handleClearTasks}>Limpiar lista de Tareas</li>
+                                <li onClick={handleChangePassword}>Cambiar contraseña</li>
                                 <li onClick={handleDesableAccount}>Desactivar cuenta</li>
                             </ul>
                         </div>
@@ -192,10 +209,13 @@ function Diary() {
                 <button className="boton-cs" onClick={handleLogout}>
                     Cerrar sesión
                 </button>
+                </div>
             </header>
             <main>
                 {showUpdateForm ? (
                     <UpdateUserForm userId={userId} onClose={handleCloseUpdateForm} />
+                ) : showChangePassword ? (
+                    <ChangePasswoerdForm userId={userId} onClose={handleCloseChangePasswordForm} />
                 ) : (
                     <>
                         <h1>Bienvenido a tu agenda </h1>

@@ -10,11 +10,12 @@ function RecuperarContraseña({ email, onClose, recoveryCode }) {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [resendCode, setResendCode] = useState("");
     const navigate = useNavigate();
+    const BASE_URL = process.env.REACT_APP_BASE_URL || "http://192.168.10.16:4000";
 
     const handleResendCode = async () => {
         try {
             // Verificar si el correo existe en la base de datos
-            const response = await fetch("http://localhost:4000/api/users/check-email", {
+            const response = await fetch(`${BASE_URL}/api/users/check-email`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email }),
@@ -24,7 +25,7 @@ function RecuperarContraseña({ email, onClose, recoveryCode }) {
             if (response.ok) {
                 if (data.exists) {
                     // Si el correo existe, enviar el código de recuperación
-                    const sendCodeResponse = await fetch("http://localhost:4000/api/users/send-recovery-code", {
+                    const sendCodeResponse = await fetch(`${BASE_URL}/api/users/send-recovery-code`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ email }),
@@ -82,7 +83,7 @@ function RecuperarContraseña({ email, onClose, recoveryCode }) {
         }
     
         try {
-            const response = await fetch(`http://localhost:4000/api/users/resetkey/${encodeURIComponent(email)}`, {
+            const response = await fetch(`${BASE_URL}/api/users/resetkey/${encodeURIComponent(email)}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ password }),
@@ -110,7 +111,7 @@ function RecuperarContraseña({ email, onClose, recoveryCode }) {
         }
 
         try {
-            const response = await fetch(`http://localhost:4000/api/users/resetkey/${encodeURIComponent(email)}`, {
+            const response = await fetch(`${BASE_URL}/api/users/resetkey/${encodeURIComponent(email)}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ password }),
