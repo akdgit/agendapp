@@ -11,7 +11,7 @@ function UpdateUserForm({ userId, onClose }) {
     const navigate = useNavigate();
     const [passwordError, setPasswordError] = useState("");
     const [blocked, setBlocked] = useState(false);
-    const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:4000";
+    const BASE_URL = process.env.REACT_APP_BASE_URL || "http://192.168.10.16:4000";
     
     // **Obtener los datos del usuario al montar el componente**
     /*useEffe

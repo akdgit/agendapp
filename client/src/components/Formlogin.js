@@ -200,7 +200,7 @@ function Formlogin(props) {
           <div className="input-container">
             <input 
               className="input-field" 
-              type="text" 
+              type="email" 
               value={email} 
               onChange={(e) => setEmail(e.target.value)}
               onBlur={handleCheckActiveStatus} 

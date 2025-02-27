@@ -191,10 +191,10 @@ function Diary() {
                 <ClockDate />
                 <div className="user-container">
                 <div className="user-info">
-                    <span onClick={toggleMenu} className="user-name">
-                        {userName}
-                        <span className="dropdown-icon">▼</span>
-                    </span>
+                <span onClick={toggleMenu} className="user-name">
+                    {userName.length > 12 ? `${userName.slice(0, 12)}...` : userName}
+                    <span className="dropdown-icon">▼</span>
+                </span>
                     {showMenu && (
                         <div className="dropdown-menu">
                             <ul>
@@ -202,6 +202,7 @@ function Diary() {
                                 <li onClick={handleClearTasks}>Limpiar lista de Tareas</li>
                                 <li onClick={handleChangePassword}>Cambiar contraseña</li>
                                 <li onClick={handleDesableAccount}>Desactivar cuenta</li>
+                                <li onClick={handleLogout} className="cs">Cerrar sesiòn</li>
                             </ul>
                         </div>
                     )}
@@ -224,7 +225,11 @@ function Diary() {
                 )}
             </main>
             <footer className="ft-diary">
-                AGENDAPP 2025 - Todos los derechos reservados.
+                
+                <div className="cr">
+                    <p>AGENDAPP 2025 &copy;</p>
+                    <p>Version 1.0.0</p>
+                </div>
             </footer>
         </div>
     );

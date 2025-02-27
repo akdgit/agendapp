@@ -3,7 +3,7 @@ import { Tooltip } from "react-tooltip";
 import Swal from "sweetalert2";
 
 function TaskArea({ taskList, setTaskList}) {
-    const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:4000";
+    const BASE_URL = process.env.REACT_APP_BASE_URL || "http://192.168.10.16:4000";
     const [showForm, setShowForm] = useState(false);
     const [task, setTask] = useState({
         description: "",  // Cambié 'title' a 'description'
@@ -412,6 +412,7 @@ function TaskArea({ taskList, setTaskList}) {
 
             <div className="addbutton-and-form">
                 <span className="add-task" onClick={handleToggleForm}>Agregar nueva tarea +</span>
+                <span className="material-symbols-outlined" onClick={handleToggleForm}> post_add </span>
                 {/* Overlay para bloquear la interacción con el fondo */}
                 {showForm && <div className="overlay"></div>}
                 <form className={`form-task ${showForm ? 'show' : ''}`} onSubmit={handleSubmit}>
