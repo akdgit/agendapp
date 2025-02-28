@@ -1,7 +1,7 @@
 {
   "name": "agendapp",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "node src/index.js",
   "scripts": {
     "babel-node": "babel-node --presets=@babel/preset-env",
     "dev": "nodemon --exec npm run babel-node src/index.js",
