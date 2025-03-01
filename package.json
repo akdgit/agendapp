@@ -1,6 +1,7 @@
 {
   "name": "agendapp",
   "version": "1.0.0",
+  "type": "module",
   "main": "node index.js",
   "scripts": {
     "babel-node": "babel-node --presets=@babel/preset-env",
