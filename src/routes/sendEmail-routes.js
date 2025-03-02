@@ -1,5 +1,5 @@
 const express = require('express');
-import { methods as sendRecoveryCode } from '../controllers/sendEmail-controllers';
+import { methods as sendRecoveryCode } from '../controllers/sendEmail-controllers.js';
 const router = express.Router();
 
 router.post("/send-recovery-code", sendRecoveryCode.sendRecoveryEmailCode);

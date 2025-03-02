@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { activitiesQuery as actQueriesControllers } from "../controllers/activitiesForUser";
+import { activitiesQuery as actQueriesControllers } from "../controllers/activitiesForUser.js";
 
 const router = Router();
 
