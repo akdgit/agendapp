@@ -9,10 +9,8 @@ const  connection = mysql.createConnection({
     timezone: "local"
 });
 
-const getConnection = () => {
-    return connection
-};
 
-module.exports = {
-    getConnection
+
+export const getConnection = () => {
+    return connection;
 };
