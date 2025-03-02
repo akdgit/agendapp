@@ -3,11 +3,11 @@ import session from "express-session";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 //Routes
-import activitiesRoute from "./routes/activities-routes";
-import userRoutes from "./routes/users-routes";
-import userActivitiesRoutes from "./routes/activitiesQueriesRoutes";
+import activitiesRoute from "./routes/activities-routes.js";
+import userRoutes from "./routes/users-routes.js";
+import userActivitiesRoutes from "./routes/activitiesQueriesRoutes.js";
 import cors from "cors";
-import sendRecoveryCode from "./routes/sendEmail-routes";
+import sendRecoveryCode from "./routes/sendEmail-routes.js";
 
 const app = express();
 
