@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import {getConnection} from "../database/database";
+import {getConnection} from "../database/database.js";
 
 
 const getActivities = async (req, res) => {

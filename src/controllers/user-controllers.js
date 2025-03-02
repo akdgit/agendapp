@@ -1,4 +1,4 @@
-import { getConnection } from  "../database/database";
+import { getConnection } from  "../database/database.js";
 import crypto, { hash } from "crypto";
 //import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
