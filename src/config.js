@@ -3,8 +3,8 @@ import { config } from "dotenv";
 config();
 
 export default {
-    host: process.env.HOST || "",
-    database: process.env.DATABASE || "",
-    user: process.env.USER || "",
-    password: process.env.PASSWORD || ""
+    host: process.env.MYSQL_HOST || "",
+    database: process.env.MYSQL_DATABASE || "",
+    user: process.env.MYSQL_USER || "",
+    password: process.env.MYSQL_PASSWORD || ""
 }
